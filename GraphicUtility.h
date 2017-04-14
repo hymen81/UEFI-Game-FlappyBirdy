@@ -1,8 +1,9 @@
 //**********************************************************************
 // Author:      Billy Huang
-// Date:        2015.08.11
+// Date: 2015.08.11
 //**********************************************************************
 
+#include <Library/UefiBootServicesTableLib.h>
 #include <Library/BaseLib.h>
 #include <Library/UefiLib.h>
 #include <Library/DebugLib.h>
@@ -12,18 +13,21 @@
 #include <Protocol/GraphicsOutput.h>
 #include <Protocol/SimpleFileSystem.h>
 
-extern EFI_SYSTEM_TABLE *gST;
-extern EFI_BOOT_SERVICES *gBS;
-extern EFI_RUNTIME_SERVICES *gRT;
+#include "PcxDecoder.h"
+
 extern EFI_GRAPHICS_OUTPUT_BLT_PIXEL *gCanvasBuffer;
 
 #define MAX_BUFFER_SIZE SIZE_1MB
 //Draw size
-#define CANVAS_W      288
-#define CANVAS_H      512
+#define CANVAS_W        288
+#define CANVAS_H        512
 //Draw on screen offset
-#define CANVAS_X      50
-#define CANVAS_Y      50
+#define CANVAS_X        50
+#define CANVAS_Y        50
+//Math
+#define abs(x)          ((x)<0 ? -(x) : (x))
+#define min(a, b)       (((a) < (b)) ? (a) : (b))
+#define max(a, b)       (((a) > (b)) ? (a) : (b))
 
 typedef struct {
     CHAR8 Type[2];
@@ -36,6 +40,16 @@ typedef struct {
     UINT16 Planes;
     UINT16 BitCount;
 } BITMAP_FILE_HEADER;
+
+
+EFI_STATUS
+LoadFromPCX(
+    IN  UINT8 *Buffer,
+    IN  UINTN BufferSize,
+    OUT UINTN * width,
+    OUT UINTN * height,
+    UINT8 **bltBuffer
+);
 
 EFI_STATUS
 LoadGraphicFromFile (

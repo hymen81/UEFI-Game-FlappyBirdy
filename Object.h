@@ -19,11 +19,11 @@ typedef struct _Info
 	UINTN height;
 } Info;
 
-typedef struct _Bird
+typedef struct _AnimationObject
 {
 	Info info;
-	EFI_GRAPHICS_OUTPUT_BLT_PIXEL *BirdImage[3];
-} Bird;
+	EFI_GRAPHICS_OUTPUT_BLT_PIXEL **Image;
+} AnimationObject;
 
 typedef struct _Object
 {
@@ -31,7 +31,7 @@ typedef struct _Object
 	EFI_GRAPHICS_OUTPUT_BLT_PIXEL *Image;
 } Object;
 
-typedef struct _AnimaiotnObject
+typedef struct _AnimaiotnObjectEx
 {
 	Info info;
 	EFI_GRAPHICS_OUTPUT_BLT_PIXEL **Image;
@@ -42,18 +42,7 @@ typedef struct _AnimaiotnObject
 	                     IN INTN Width,
 	                     IN INTN Height,
 	                     OUT EFI_GRAPHICS_OUTPUT_BLT_PIXEL *BltOutBuffer);
-} AnimaiotnObject;
+} AnimaiotnObjectEx;
 
-typedef struct _Pipe
-{
-	Info info;
-	EFI_GRAPHICS_OUTPUT_BLT_PIXEL *PipeImage;
-} Pipe;
-
-typedef struct _GameOver
-{
-	Info info;
-	EFI_GRAPHICS_OUTPUT_BLT_PIXEL *GameOverImage;
-} GameOver;
 
 #pragma pack()
