@@ -2,7 +2,7 @@
  
 
 ## What is it?
-- Implementing flappy bird by UEFI
+- Implementing flappy bird by UEFI(BIOS firmware)
  (in my free time :D)
 /////Code Bad Smell/////
 
